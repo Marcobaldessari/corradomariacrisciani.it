@@ -1,0 +1,119 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Corrado Maria Crisciani Fotografo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Corrado Maria Crisciani - Fotografo">
+	<meta name="author" content="Italic - interactive agency">
+
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/animate.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/default.css" rel="stylesheet" >
+	<link href="css/style.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300' rel='stylesheet' type='text/css'>
+	<link href="favicon.ico" rel="icon" type="image/ico" >
+	
+	<script src="js/modernizr.custom.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+
+<body class="menu-push">
+
+	<button id="openmenu" class="cmc-button" type="button" role="button" aria-label="Toggle Navigation">
+		<div class="doubleframe">
+			<span id="logo" class="logo"></span>
+		</div>
+	</button>
+
+	<nav class="menu menu-vertical menu-left" id="menu-s1">
+		<div class="overlay_blank_mobile"></div>
+		<div class="nav_wrapper transparent">
+			<ul>
+				<li><a href="index.html">About</a></li>
+				<li><a href="portfolio.html">Portfolio</a></li>
+				<li><a href="mailto:cmcrisciani@fastwebnet.it">Contatti</a></li>
+			</ul>
+			<footer>All images © 1976-2014</br>Corrado Maria Crisciani.</footer>
+		</div>
+		<div class="overlay_blank_mobile"></div>
+	</nav>
+
+	<div id="main" class="menu-push">
+		<div id="page">
+			<div class="container-fluid">
+				<a href="ritratti.html"  class="portfolio have-sub-menu" id="portfolio1">
+					<div class="overlay">
+						<h2>ritratti</h2>
+					</div>
+				</a>
+				<a href="arredo.html"  class="portfolio have-sub-menu" id="portfolio2">
+					<div class="overlay">
+						<h2>arredo</h2>
+
+					</div>
+				</a>
+				<a href="prodotto.html" class="portfolio have-sub-menu" id="portfolio3">
+					<div class="overlay">
+						<h2>prodotto</h2>
+					</div>
+				</a>
+				<a href="people.html" class="portfolio have-sub-menu" id="portfolio4">
+					<div class="overlay">
+						<h2>people</h2>
+					</div>
+				</a>
+				<a href="docenza.html"  class="portfolio have-sub-menu" id="portfolio5">
+					<div class="overlay">
+					<h2>docenza</h2>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<script src="js/classie.js"></script>
+
+	<!-- BUTTON ANIMATION & PUSH MENU & BUTTON COLORCHANGE -->
+
+	<script type="text/javascript">
+		var menuLeft = document.getElementById( 'menu-s1' ),
+		showLeftPush = document.getElementById( 'showLeftPush' ),
+		main = document.getElementById( 'main' ),
+		portfolio1 = document.getElementById('portfolio1'),
+		openmenu = document.getElementById('openmenu'),
+		logo = document.getElementById('logo');
+
+
+		openmenu.onclick = function() {
+			event.preventDefault();
+			classie.toggle( this, 'open' );
+			classie.toggle( main, 'menu-push-toright' );
+			classie.toggle( menuLeft, 'menu-open' );
+	
+			
+		};
+
+		$("#portfolio1").hover(function() {
+			classie.toggle( openmenu, 'dark');	
+			classie.toggle( logo, 'dark');
+		})
+	</script>
+	<!-- SUBMENU SCRUPT 
+
+	<script type="text/javascript">
+		jQuery( function() {
+
+			jQuery('.have-sub-menu').on('click', function() {
+				jQuery('.have-sub-menu').removeClass('open');
+				if(jQuery(this).hasClass('open'))
+					jQuery(this).removeClass('open');
+				else
+					jQuery(this).addClass('open');
+			});
+		});
+	</script>
+	-->
+</body>
+</html>
