@@ -55,6 +55,13 @@ def convert_php_to_html(filename):
 def main():
     files = [f for f in os.listdir('.') if f.endswith('.php')]
     for f in files:
+        # Check if index.php is a placeholder to avoid overwriting a good index.html
+        if f == 'index.php':
+            with open(f, 'r', encoding='utf-8') as check_file:
+                if 'sito in costruzione' in check_file.read():
+                    print(f"Skipping {f} as it is a placeholder.")
+                    continue
+
         html_content = convert_php_to_html(f)
         output_name = f.replace('.php', '.html')
         with open(output_name, 'w', encoding='utf-8') as out:
