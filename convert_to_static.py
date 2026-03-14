@@ -16,10 +16,9 @@ def convert_php_to_html(filename):
     # Find the path in the PHP script
     path_match = re.search(r"\$path = '([^']+)';", content)
     if not path_match:
-        # Some files might not have a path or have a different format
-        # For now, let's just replace simple PHP echo/server variables
-        content = re.sub(r'<\?php echo \$_SERVER\["HTTP_HOST"\]; \?>', 'localhost', content)
-        content = re.sub(r'<\?php echo \$_SERVER\["SERVER_SOFTWARE"\]; \?>', 'Python/3.x', content)
+        # Global URL cleanup
+        content = content.replace('http://fonts.googleapis.com', 'https://fonts.googleapis.com')
+        content = content.replace('http://ajax.googleapis.com', 'https://ajax.googleapis.com')
         return content
 
     image_path = path_match.group(1)
@@ -51,8 +50,9 @@ def convert_php_to_html(filename):
     # Some files use shorthand <?= $img ?>
     content = re.sub(r'<\?=\$img \?>', '', content)
     
-    # Handle other PHP blocks
-    content = re.sub(r'<\?php.*?\?>', '', content, flags=re.DOTALL)
+    # Global URL cleanup
+    content = content.replace('http://fonts.googleapis.com', 'https://fonts.googleapis.com')
+    content = content.replace('http://ajax.googleapis.com', 'https://ajax.googleapis.com')
 
     return content
 
@@ -78,13 +78,15 @@ def main():
         with open(f, 'r', encoding='utf-8') as file:
             content = file.read()
         
-        # Replace .php with .html in links
-        new_content = re.sub(r'href="([^"]+)\.php"', r'href="\1.html"', content)
+        # Replace insecure URLs and links
+        new_content = content.replace('http://fonts.googleapis.com', 'https://fonts.googleapis.com')
+        new_content = new_content.replace('http://ajax.googleapis.com', 'https://ajax.googleapis.com')
+        new_content = re.sub(r'href="([^"]+)\.php"', r'href="\1.html"', new_content)
         
         if new_content != content:
             with open(f, 'w', encoding='utf-8') as file:
                 file.write(new_content)
-            print(f"Updated links in {f}")
+            print(f"Updated links/URLs in {f}")
 
 if __name__ == "__main__":
     main()
