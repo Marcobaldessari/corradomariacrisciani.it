@@ -31,11 +31,15 @@ def convert_php_to_html(filename):
     # First, let's just generate the HTML for the slides
     slides_html = ""
     for img in images:
-        slides_html += f'                                    <li>\n                                        <img src="{img}"/>\n                                    </li>\n'
+        # Make paths relative for GitHub Pages compatibility
+        relative_img = img.lstrip('/')
+        slides_html += f'                                    <li>\n                                        <img src="{relative_img}"/>\n                                    </li>\n'
 
     carousel_html = ""
     for img in images:
-        carousel_html += f'                                    <li>\n                                        <div class="hover"></div>\n                                        <img src="{img}"/>\n                                    </li>\n'
+        # Make paths relative for GitHub Pages compatibility
+        relative_img = img.lstrip('/')
+        carousel_html += f'                                    <li>\n                                        <div class="hover"></div>\n                                        <img src="{relative_img}"/>\n                                    </li>\n'
 
     # This is a bit hacky but should work for this specific codebase
     # Replace the slider block
