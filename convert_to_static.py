@@ -28,24 +28,26 @@ def convert_php_to_html(filename):
     # We look for the patterns starting with <?php and ending with ?>
     
     # First, let's just generate the HTML for the slides
-    slides_html = ""
+    slides_html = '<div class="swiper-wrapper">\n'
     for img in images:
         # Make paths relative for GitHub Pages compatibility
         relative_img = img.lstrip('/')
-        slides_html += f'                                    <li>\n                                        <img src="{relative_img}"/>\n                                    </li>\n'
+        slides_html += f'        <div class="swiper-slide">\n            <img src="{relative_img}"/>\n        </div>\n'
+    slides_html += '    </div>\n    <div class="swiper-button-next"></div>\n    <div class="swiper-button-prev"></div>\n'
 
-    carousel_html = ""
-    for img in images:
-        # Make paths relative for GitHub Pages compatibility
-        relative_img = img.lstrip('/')
-        carousel_html += f'                                    <li>\n                                        <div class="hover"></div>\n                                        <img src="{relative_img}"/>\n                                    </li>\n'
+    # Update CSS/JS for Swiper
+    content = content.replace('css/style.css">', 'css/style.css">\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />')
+    content = content.replace('<script src="js/scripts.js"></script>', '<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>\n    <script src="js/scripts.js"></script>')
 
-    # This is a bit hacky but should work for this specific codebase
     # Replace the slider block
-    content = re.sub(r'<\?php.*?// Inizio script per il caricamento di file da ftp.*?// Fine script per il caricamento di file da ftp.*?\?>', slides_html, content, flags=re.DOTALL)
+    # We target the <div id="slider" class="flexslider">...</div> structure
+    content = re.sub(r'<div id="slider" class="flexslider">.*?<ul class="slides">.*?</ul>.*?</div>', f'<div id="slider" class="swiper gallery-swiper">{slides_html}</div>', content, flags=re.DOTALL)
     
-    # Replace the carousel block (if present)
-    content = re.sub(r'<\?php.*?// Inizio script per il caricamento di file da ftp.*?// Fine script per il caricamento di file da ftp.*?\?>', carousel_html, content, flags=re.DOTALL)
+    # Remove the old carousel if present
+    content = re.sub(r'<div id="carousel" class="flexslider">.*?<ul class="slides">.*?</ul>.*?</div>', '', content, flags=re.DOTALL)
+    
+    # Remove the pseudo-scroll if present (we'll use Swiper's native scrollbar if needed)
+    content = re.sub(r'<div class="pseudo-scroll">.*?</div>', '', content, flags=re.DOTALL)
 
     # Some files use shorthand <?= $img ?>
     content = re.sub(r'<\?=\$img \?>', '', content)
@@ -82,6 +84,9 @@ def main():
         new_content = content.replace('http://fonts.googleapis.com', 'https://fonts.googleapis.com')
         new_content = new_content.replace('http://ajax.googleapis.com', 'https://ajax.googleapis.com')
         new_content = re.sub(r'href="([^"]+)\.php"', r'href="\1.html"', new_content)
+        
+        # Replace initialization calls
+        new_content = new_content.replace('InitPortfolioFlexSlider();', 'InitPortfolioSwiper();')
         
         if new_content != content:
             with open(f, 'w', encoding='utf-8') as file:

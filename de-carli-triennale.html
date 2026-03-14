@@ -60,23 +60,16 @@
 
 
                     <section class="slider">
-                        <div id="slider" class="flexslider">
-                            <ul class="slides">
-                                
-                            </ul>
-                        </div>
+                        <div id="slider" class="swiper gallery-swiper"><div class="swiper-wrapper">
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
 
-                        <div id="carousel" class="flexslider">
-                            <ul class="slides">
-                                
-
-
-                            </ul>
-                        </div>
+                        
 
                         <!-- Scroll -->
-                        <div class="pseudo-scroll">
-                            <div class="scrollbar"></div>
+                        
                         </div>
 
                     </section>
@@ -92,6 +85,7 @@
     <script src="js/libs/jquery.flexslider.js"></script>
 
     <!-- Custom -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/scripts.js"></script>
 
     <script src="js/classie.js"></script>
@@ -124,7 +118,7 @@
         $('.menu-right > li > a:eq(2)').addClass('active');
 
         // Other Stuff
-        InitPortfolioFlexSlider();
+        InitPortfolioSwiper();
     </script>
 
 

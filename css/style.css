@@ -596,6 +596,9 @@ p a:active:after {
   color: #333;
 }
 @media only screen and (max-width: 640px) {
+  #about {
+    background-position: right center !important;
+  }
   #about #title {
     width: auto;
   }
@@ -832,7 +835,7 @@ p a:active:after {
     width: 100%;
     float: none;
     display: block;
-    height: 100%;
+    height: 75%;
   }
   .portfolio h2 {
     font-size: 55px;
@@ -1176,6 +1179,12 @@ html {
     -webkit-transition: .2s ease;
     transition: .2s ease;
   }
+  .gallerypage .menu-vertical {
+      visibility: hidden;
+  }
+  .gallerypage .menu-vertical.menu-open {
+      visibility: visible;
+  }
 }
 .cmc-button .logo {
   top: -77;
@@ -1265,51 +1274,86 @@ body {
 
 
 
-/* FlexSlider Necessary Styles
+/*/* Swiper Gallery Styles
 *********************************/
-.flexslider {
-  position: relative;
+.swiper {
+  width: 100%;
+  height: 100vh;
 }
-.flexslider ul,
-.flexslider ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.flexslider ul li,
-.flexslider ol li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.flexslider .slides > li {
-  position: relative;
-  display: none;
-  -webkit-backface-visibility: hidden;
+.swiper-slide {
   text-align: center;
+  font-size: 18px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.flexslider .slides img {
-  max-width: 100%;
+.swiper-slide img {
   display: block;
-  margin: 0 auto;
+  width: 95%;
   height: auto;
-  width: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-.flexslider .descr {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  background: rgba(100, 100, 100, 0.5);
-  color: #fff;
-  text-align: left;
+.swiper-button-next,
+.swiper-button-prev {
+  color: #dec311;
+  transition: all 0.3s ease;
 }
-.flexslider .descr h3 {
-  text-align: left;
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 10px rgba(222, 195, 17, 0.5);
 }
-.flexslider .descr .text p:last-child {
-  margin-bottom: 0;
+@media only screen and (max-width: 640px) {
+  .swiper-slide img {
+    width: 90%;
+    max-height: 60vh;
+  }
+}
+
+/* Override fixed widths from general.css for modern Swiper gallery */
+.portfolio-single-center-align,
+.slider {
+  width: 95% !important;
+  max-width: none !important;
+  margin: 30px auto 0 !important;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+}
+
+#main.menu-push-toright {
+  transform: none !important;
+  margin-left: 0 !important;
+  left: 0 !important;
+}
+
+/* Ensure menu is visible and overlays content */
+.menu-left.menu-open,
+.cbp-spmenu-left.cbp-spmenu-open {
+  left: 0 !important;
+  visibility: visible !important;
+  display: block !important;
+  z-index: 10000 !important;
+}
+
+.menu-right.menu-open,
+.cbp-spmenu-right.cbp-spmenu-open {
+  right: 0 !important;
+  visibility: visible !important;
+  display: block !important;
+  z-index: 10000 !important;
+}
+
+.menu-vertical {
+  width: 240px !important;
+  height: 100% !important;
+  position: fixed !important;
+  top: 0 !important;
 }
 .flex-container {
   position: relative;
@@ -1337,34 +1381,8 @@ html[xmlns] .slides {
   display: table;
 }
 
-.slider .flex-direction-nav a {
-  border: 1px solid #dec311 !important;
-}
-
-.slider .flex-direction-nav a.flex-prev {
-  background: transparent url("images/left.png") no-repeat center;
-  left: 50px;
-}
-
-.slider .flex-direction-nav a.flex-prev:hover {
-  background: #dec311 url("images/left-hover.png") no-repeat center;
-}
-
-.slider .flex-direction-nav a.flex-next {
-  background: transparent url("images/right.png") no-repeat center;
-  right: 50px;
-}
-
-.slider .flex-direction-nav a.flex-next:hover {
-  background: #dec311 url("images/right-hover.png") no-repeat center;
-}
-
-.slider #slider .flex-viewport {
-  height: 540px;
-}
-
-.slider #slider li img {
-  max-height: 540px;
+.gallery-swiper {
+  margin-top: 50px;
 }
 
 .cmc-button:after {

@@ -252,53 +252,34 @@ function InitPortfolio()
     });
 }
 
-function InitPortfolioFlexSlider()
-{
-    var count = $('#carousel li').length;
-    var scroll = $('.slider .scrollbar');
+function InitPortfolioSwiper() {
+    const swiper = new Swiper('.gallery-swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: false,
+        speed: 800,
+        effect: 'slide',
+        spaceBetween: 50,
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: 1,
+        
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
 
-    var offset = (100 / count);
-    scroll.width( offset + '%' );
+        // Enable keyboard control
+        keyboard: {
+            enabled: true,
+        },
 
-    // Slider
-    $('#slider').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false,
-        sync: "#carousel",
-        nextText: "",
-        prevText: "",
-        after: function(slider){
-            var current = slider.currentSlide + 1;
-            scroll.animate({'left': ((current * offset) - offset) + '%'});
-        }
-    });
 
-    var slider = $("#carousel");
-
-    // Thumbs
-    $('#carousel').flexslider({
-        animation: "slide",
-        controlNav: false,
-        directionNav: false,
-        animationLoop: false,
-        slideshow: false,
-        asNavFor: '#slider',
-        itemWidth: 100,
-        smoothHeight: true
-    });
-
-    // Show Story When Click
-    $('.slider .hover .content').click(function(){
-        $(this).parent('.hover').css({display: 'none'});
-        $(this).parents('li').children('.story').css({visibility: 'visible', opacity: 1});
-    });
-
-    // Close Story
-    $('.slider .close').click(function(){
-        $(this).parents('.story').css({visibility: 'hidden', opacity: 0});
-        $(this).parents('li').children('.hover').css({display: 'block'});
+        // Zooming capability
+        zoom: {
+            maxRatio: 3,
+        },
     });
 }
 
