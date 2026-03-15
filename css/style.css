@@ -1042,7 +1042,7 @@ html {
   height: 50px;
   position: absolute;
   top: 50px;
-  left: 100px;
+  left: 50px;
   background: none;
   border-radius: none;
   display: inline-block;
@@ -1056,9 +1056,9 @@ html {
   -webkit-transform-origin: 50% 50%;
   -ms-transform-origin: 50% 50%;
   transform-origin: 50% 50%;
-  -webkit-transform: rotate3d(1, 0, 0, 360deg) translateX(-50%);
-  -ms-transform: rotate3d(1, 0, 0, 360deg) translateX(-50%);
-  transform: rotate3d(1, 0, 0, 360deg) translateX(-50%);
+  -webkit-transform: rotate3d(1, 0, 0, 360deg);
+  -ms-transform: rotate3d(1, 0, 0, 360deg);
+  transform: rotate3d(1, 0, 0, 360deg);
 }
 .cmc-button:hover {
   opacity: 1;
@@ -1130,13 +1130,13 @@ html {
   top: -10px;
 }
 .cmc-button.open {
-  left: 120px;
+  left: 50px;
   top: 6%;
   height: 200px;
   width: 200px;
-  -webkit-transform: rotate3d(1, 0, 0, 0deg) translateX(-50%);
-  -ms-transform: rotate3d(1, 0, 0, 0deg) translateX(-50%);
-  transform: rotate3d(1, 0, 0, 0deg) translateX(-50%);
+  -webkit-transform: rotate3d(1, 0, 0, 0deg);
+  -ms-transform: rotate3d(1, 0, 0, 0deg);
+  transform: rotate3d(1, 0, 0, 0deg);
   margin: none;
   border: none;
 }
@@ -1159,11 +1159,14 @@ html {
   background: #333;
 }
 @media only screen and (max-width: 640px) {
+  .cmc-button {
+    left: 50px;
+  }
   .cmc-button.open {
-    left: 50%;
-    -webkit-transform: rotate3d(1, 0, 0, 0deg) translateX(-50%);
-    -ms-transform: rotate3d(1, 0, 0, 0deg) translateX(-50%);
-    transform: rotate3d(1, 0, 0, 0deg) translateX(-50%);
+    left: 20px;
+    -webkit-transform: rotate3d(1, 0, 0, 0deg);
+    -ms-transform: rotate3d(1, 0, 0, 0deg);
+    transform: rotate3d(1, 0, 0, 0deg);
   }
   .menu-vertical.menu-open {
     width: 100%;
