@@ -990,34 +990,38 @@ html {
 }
 */
 .have-sub-menu.open ul li a {
-  display: block;
-  overflow: hidden;
+  display: inline-block;
   padding: 0 4px;
-  height: 1em;
+  color: #333 !important;
+  position: relative;
+  text-decoration: none;
+  font-size: 40px;
 }
+
 .have-sub-menu.open ul li a span {
   position: relative;
   display: inline-block;
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: transform 0.3s;
 }
-.have-sub-menu.open ul li a span::before {
+
+.have-sub-menu.open ul li a:after {
+  content: "";
+  width: 0;
+  height: 2px;
+  background: #333;
   position: absolute;
-  top: 100%;
-  content: attr(data-hover);
-  font-weight: 700;
-  -webkit-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  bottom: 0;
+  left: 0;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
-.have-sub-menu.open ul li a:hover span,
-.have-sub-menu.open ul li a:focus span {
-  -webkit-transform: translateY(-100%);
-  -ms-transform: translateY(-100%);
-  transform: translateY(-100%);
+
+.have-sub-menu.open ul li a:hover:after {
+  width: 100%;
 }
+
 .have-sub-menu.open ul {
-  display: inline-block;
+  display: block;
+  text-align: center;
 }
 .portfolio.have-sub-menu.open h2 {
   border-color: #333;
