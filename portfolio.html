@@ -44,32 +44,60 @@
 	<div id="main" class="menu-push">
 		<div id="page">
 			<div class="container-fluid">
-				<a href="ritratti.html"  class="portfolio have-sub-menu" id="portfolio1">
+				<div class="portfolio have-sub-menu" id="portfolio1">
 					<div class="overlay">
-						<h2>ritratti</h2>
+						<h2>ritratti (click to open)</h2>
+						<ul>
+							<li><a href="artisti.html" data-hover="artisti"><span>artisti</span></a></li>
+							<li><a href="designers.html" data-hover="designers"><span>designers</span></a></li>
+							<li><a href="industriali.html" data-hover="industriali"><span>industriali</span></a></li>
+						</ul>
 					</div>
-				</a>
-				<a href="arredo.html"  class="portfolio have-sub-menu" id="portfolio2">
+				</div>
+				<div class="portfolio have-sub-menu" id="portfolio2">
 					<div class="overlay">
 						<h2>arredo</h2>
-
+						<ul>
+							<li><a href="complementi.html" data-hover="complementi"><span>complementi</span></a></li>
+							<li><a href="luce.html" data-hover="luce"><span>luce</span></a></li>
+							<li><a href="cucine.html" data-hover="cucine"><span>cucine</span></a></li>
+							<li><a target="_blank" href="https://www.youtube.com/watch?v=MuqGgcpMW6g&list=PLIa503agTspJXxi1mCRGveA07pYpFt_4o" data-hover="video"><span>video</span></a></li>
+						</ul>
 					</div>
-				</a>
-				<a href="prodotto.html" class="portfolio have-sub-menu" id="portfolio3">
+				</div>
+				<div class="portfolio have-sub-menu" id="portfolio3">
 					<div class="overlay">
 						<h2>prodotto</h2>
+						<ul>
+							<li><a href="industria.html" data-hover="industria"><span>industria</span></a></li>
+							<li><a href="reportage.html" data-hover="reportage"><span>reportage</span></a></li>
+							<li><a target="_blank" href="https://www.youtube.com/watch?v=MuqGgcpMW6g&list=PLIa503agTspJXxi1mCRGveA07pYpFt_4o" data-hover="video"><span>video</span></a></li>
+						</ul>
 					</div>
-				</a>
-				<a href="people.html" class="portfolio have-sub-menu" id="portfolio4">
+				</div>
+				<div class="portfolio have-sub-menu" id="portfolio4">
 					<div class="overlay">
 						<h2>people</h2>
+						<ul>
+							<li><a href="beauty.html" data-hover="beauty"><span>beauty</span></a></li>
+							<li><a href="gente.html" data-hover="gente"><span>gente</span></a></li>
+						</ul>
 					</div>
-				</a>
-				<a href="docenza.html"  class="portfolio have-sub-menu" id="portfolio5">
+				</div>
+				<div class="portfolio have-sub-menu" id="portfolio5">
 					<div class="overlay">
-					<h2>docenza</h2>
+						<h2>docenza</h2>
+						<ul>
+							<li><a href="polimi-corsi.html" data-hover="corsi"><span>corsi</span></a></li>
+							<li><a href="polimi-fit.html" data-hover="fit"><span>fit</span></a></li>
+							<li><a href="polimi-tesi.html" data-hover="tesi"><span>tesi</span></a></li>
+							<li><a href="accademia-scala.html" data-hover="accademia"><span>accademia</span></a></li>
+							<li><a href="ws-tutor.html" data-hover="ws tutor"><span>ws tutor</span></a></li>
+							<li><a href="ricerca.html" data-hover="ricerca"><span>ricerca</span></a></li>
+							<li><a target="_blank" href="https://www.youtube.com/watch?v=mSPlVq3HNtQ&list=PLIa503agTspK6PSvufMSbfjGccJpMF_Cs" data-hover="video"><span>video</span></a></li>
+						</ul>
 					</div>
-				</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -79,21 +107,36 @@
 
 	<script type="text/javascript">
 		var menuLeft = document.getElementById( 'menu-s1' ),
-		showLeftPush = document.getElementById( 'showLeftPush' ),
 		main = document.getElementById( 'main' ),
-		portfolio1 = document.getElementById('portfolio1'),
-		openmenu = document.getElementById('openmenu'),
-		logo = document.getElementById('logo');
+		openmenu = document.getElementById( 'openmenu' ),
+		logo = document.getElementById( 'logo' );
 
-
-		openmenu.onclick = function() {
+		openmenu.onclick = function(event) {
 			event.preventDefault();
 			classie.toggle( this, 'open' );
 			classie.toggle( main, 'menu-push-toright' );
 			classie.toggle( menuLeft, 'menu-open' );
-	
-			
 		};
+
+		// Portfolio Submenu Logic
+		jQuery(document).ready(function($) {
+			$('.have-sub-menu').on('click', function(e) {
+				// If clicking a sub-link itself, allow navigation
+				if ($(e.target).closest('a').length) return;
+				
+				e.preventDefault();
+				e.stopPropagation();
+				
+				var $this = $(this);
+				var wasOpen = $this.hasClass('open');
+				
+				$('.have-sub-menu').removeClass('open');
+				
+				if (!wasOpen) {
+					$this.addClass('open');
+				}
+			});
+		});
 
 		$("#portfolio1").hover(function() {
 			classie.toggle( openmenu, 'dark');	
