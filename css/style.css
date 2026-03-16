@@ -1281,51 +1281,133 @@ body {
 
 
 
-/*/* Swiper Gallery Styles
+/* Main Gallery & Thumbs Revamp
 *********************************/
-.swiper {
-  width: 100%;
-  height: 100vh;
-}
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.swiper-slide img {
-  display: block;
+.gallery-container {
   width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  padding: 40px 0;
+}
+
+.main-swiper {
+  width: 100%;
+  margin-bottom: 30px;
+  overflow: visible !important; /* Allow nav buttons to hang outside if needed */
+}
+
+.main-swiper .swiper-slide img {
+  display: block;
+  width: auto;
+  max-width: 100%;
   height: auto;
-  max-height: 85vh;
-  object-fit: contain;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  max-height: 75vh;
+  margin: 0 auto;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+  border: 1px solid rgba(222, 195, 17, 0.1);
 }
-.swiper-button-next,
-.swiper-button-prev {
-  color: #dec311;
-  transition: all 0.3s ease;
+
+/* Custom Navigation: Yellow Square Frames */
+.custom-nav {
+  width: 60px !important;
+  height: 60px !important;
+  background: transparent !important;
+  border: 2px solid #dec311 !important;
+  color: #dec311 !important;
+  margin-top: -30px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  transform: scale(1.2);
-  text-shadow: 0 0 10px rgba(222, 195, 17, 0.5);
+
+.custom-nav:after {
+  display: none !important; /* Hide default Swiper icons */
 }
-@media only screen and (max-width: 640px) {
-  .swiper-slide img {
-    width: 90%;
-    max-height: 60vh;
+
+.custom-nav i {
+  font-size: 24px;
+}
+
+.custom-nav:hover {
+  background: #dec311 !important;
+  color: #121518 !important;
+  transform: scale(1.1);
+}
+
+.swiper-button-next.custom-nav {
+  right: -80px !important;
+}
+
+.swiper-button-prev.custom-nav {
+  left: -80px !important;
+}
+
+/* Thumbnail Swiper */
+.thumb-swiper {
+  width: 100%;
+  max-width: 1000px;
+  height: 120px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.thumb-swiper .swiper-slide {
+  width: 180px !important;
+  height: 100% !important;
+  opacity: 0.3;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+.thumb-swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.thumb-swiper .swiper-slide:hover img {
+  transform: scale(1.1);
+}
+
+.thumb-swiper .swiper-slide-thumb-active {
+  opacity: 1;
+  border: 2px solid #dec311;
+  box-shadow: 0 0 15px rgba(222, 195, 17, 0.3);
+}
+
+@media only screen and (max-width: 1600px) {
+  .swiper-button-next.custom-nav { right: 10px !important; }
+  .swiper-button-prev.custom-nav { left: 10px !important; }
+  .main-swiper { overflow: hidden !important; }
+}
+
+@media only screen and (max-width: 768px) {
+  .thumb-swiper {
+    height: 80px;
+  }
+  .thumb-swiper .swiper-slide {
+    width: 120px !important;
+  }
+  .custom-nav {
+    width: 45px !important;
+    height: 45px !important;
+  }
+  .custom-nav i {
+    font-size: 18px;
   }
 }
 
 /* Override fixed widths from general.css for modern Swiper gallery */
 .portfolio-single-center-align,
 .slider {
-  width: 95% !important;
+  width: 100% !important;
   max-width: none !important;
-  margin: 30px auto 0 !important;
+  margin: 0 !important;
 }
 
 html, body {

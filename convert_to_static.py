@@ -27,26 +27,53 @@ def convert_php_to_html(filename):
     # Replace the multi-line PHP blocks
     # We look for the patterns starting with <?php and ending with ?>
     
-    # First, let's just generate the HTML for the slides
-    slides_html = '<div class="swiper-wrapper">\n'
+    # First, generate the HTML for the slides
+    slides_html = '<div class="gallery-container">\n'
+    
+    # Main Swiper
+    slides_html += '        <div class="swiper main-swiper">\n            <div class="swiper-wrapper">\n'
     for img in images:
-        # Make paths relative for GitHub Pages compatibility
         relative_img = img.lstrip('/')
-        slides_html += f'        <div class="swiper-slide">\n            <img src="{relative_img}"/>\n        </div>\n'
-    slides_html += '    </div>\n    <div class="swiper-button-next"></div>\n    <div class="swiper-button-prev"></div>\n'
+        slides_html += f'                <div class="swiper-slide">\n                    <img src="{relative_img}"/>\n                </div>\n'
+    slides_html += '            </div>\n'
+    # Custom Navigation
+    slides_html += '            <div class="swiper-button-next custom-nav"><i class="fa fa-chevron-right"></i></div>\n'
+    slides_html += '            <div class="swiper-button-prev custom-nav"><i class="fa fa-chevron-left"></i></div>\n'
+    slides_html += '        </div>\n'
+    
+    # Thumb Swiper
+    slides_html += '        <div class="swiper thumb-swiper">\n            <div class="swiper-wrapper">\n'
+    for img in images:
+        relative_img = img.lstrip('/')
+        slides_html += f'                <div class="swiper-slide">\n                    <img src="{relative_img}"/>\n                </div>\n'
+    slides_html += '            </div>\n        </div>\n'
+    slides_html += '    </div>\n'
 
     # Update CSS/JS for Swiper
-    content = content.replace('css/style.css">', 'css/style.css">\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />')
-    content = content.replace('<script src="js/scripts.js"></script>', '<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>\n    <script src="js/scripts.js"></script>')
+    # Check if they are already there to avoid duplicates
+    if 'swiper-bundle.min.css' not in content:
+        # Match <link ... href="css/style.css" ...> regardless of attribute order
+        content = re.sub(r'(<link[^>]+href=["\']css/style\.css["\'][^>]*>)', r'\1\n    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />', content)
+    if 'swiper-bundle.min.js' not in content:
+        # Match <script ... src="js/scripts.js" ...> regardless of attribute order
+        content = re.sub(r'(<script[^>]+src=["\']js/scripts\.js["\'][^>]*>)', r'<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>\n    \1', content)
 
-    # Replace the slider block
-    # We target the <div id="slider" class="flexslider">...</div> structure
-    content = re.sub(r'<div id="slider" class="flexslider">.*?<ul class="slides">.*?</ul>.*?</div>', f'<div id="slider" class="swiper gallery-swiper">{slides_html}</div>', content, flags=re.DOTALL)
+    # First, try to replace the entire section content if it exists
+    if '<section class="slider">' in content:
+        content = re.sub(r'<section class="slider">.*?</section>', f'<section class="slider">\n{slides_html}\n                    </section>', content, flags=re.DOTALL)
+    else:
+        # Fallback for older formats if section is missing or differently named
+        # We target the old structure OR the previously generated swarm structure
+        # Old flexslider
+        content = re.sub(r'<div id="slider" class="flexslider">.*?<ul class="slides">.*?</ul>.*?</div>', slides_html, content, flags=re.DOTALL)
+        # Our previous swiper attempts
+        content = re.sub(r'<div id="slider" class="swiper gallery-swiper">.*?</div>', slides_html, content, flags=re.DOTALL)
+        content = re.sub(r'<div class="gallery-container">.*?</div>', slides_html, content, flags=re.DOTALL)
     
     # Remove the old carousel if present
     content = re.sub(r'<div id="carousel" class="flexslider">.*?<ul class="slides">.*?</ul>.*?</div>', '', content, flags=re.DOTALL)
     
-    # Remove the pseudo-scroll if present (we'll use Swiper's native scrollbar if needed)
+    # Remove the pseudo-scroll if present
     content = re.sub(r'<div class="pseudo-scroll">.*?</div>', '', content, flags=re.DOTALL)
 
     # Some files use shorthand <?= $img ?>

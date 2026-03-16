@@ -253,16 +253,21 @@ function InitPortfolio()
 }
 
 function InitPortfolioSwiper() {
-    const swiper = new Swiper('.gallery-swiper', {
-        // Optional parameters
-        direction: 'horizontal',
-        loop: false,
+    // Thumbnail Swiper
+    const thumbSwiper = new Swiper('.thumb-swiper', {
+        spaceBetween: 10,
+        slidesPerView: 'auto',
+        freeMode: true,
+        watchSlidesProgress: true,
+        centerInsufficientSlides: true,
+    });
+
+    // Main Swiper
+    const mainSwiper = new Swiper('.main-swiper', {
+        spaceBetween: 30,
         speed: 800,
-        effect: 'slide',
-        spaceBetween: 50,
         grabCursor: true,
         centeredSlides: true,
-        slidesPerView: 1,
         
         // Navigation arrows
         navigation: {
@@ -270,16 +275,20 @@ function InitPortfolioSwiper() {
             prevEl: '.swiper-button-prev',
         },
 
+        // Thumbs
+        thumbs: {
+            swiper: thumbSwiper,
+        },
+
         // Enable keyboard control
         keyboard: {
             enabled: true,
         },
 
-
-        // Zooming capability
-        zoom: {
-            maxRatio: 3,
-        },
+        // Zoom/Smoothness
+        mousewheel: {
+            forceToAxis: true,
+        }
     });
 }
 
