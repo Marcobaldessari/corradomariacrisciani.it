@@ -1288,13 +1288,20 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   position: relative;
-  padding: 40px 0;
+  padding: 20px 0 10px;
 }
 
 .main-swiper {
   width: 100%;
-  margin-bottom: 30px;
+  height: 70vh;
+  margin-bottom: 10px;
   overflow: visible !important; /* Allow nav buttons to hang outside if needed */
+}
+
+.main-swiper .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-swiper .swiper-slide img {
@@ -1302,7 +1309,7 @@ body {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 75vh;
+  max-height: 70vh;
   margin: 0 auto;
   box-shadow: 0 15px 50px rgba(0,0,0,0.6);
   border: 1px solid rgba(222, 195, 17, 0.1);
@@ -1387,6 +1394,12 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+  .main-swiper {
+    height: 55vh;
+  }
+  .main-swiper .swiper-slide img {
+    max-height: 55vh;
+  }
   .thumb-swiper {
     height: 80px;
   }
